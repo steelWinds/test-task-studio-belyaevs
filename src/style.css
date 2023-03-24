@@ -2,6 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer vue-animations;
+
+@layer vue-animations {
+  .list-slide-move,
+  .list-slide-enter-active,
+  .list-slide-leave-active {
+    transition: all .2s linear;
+  }
+
+  .list-slide-enter-from,
+  .list-slide-leave-to {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+
+  .list-slide-leave-active {
+    position: absolute;
+  }
+}
+
 :root {
   font-family: Gotham Pro, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -16,6 +36,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  -webkit-tap-highlight-color: transparent;
 }
 
 *:disabled {

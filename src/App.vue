@@ -24,18 +24,21 @@ watch(timers, scrollToFullSize, { deep: true, flush: 'post' })
 <template>
   <main class="h-auto w-full flex place-content-center p-3">
     <article class="counters-grid grid gap-[50px] mt-12">
-      <VCounterCard
-        v-for="(point, id) of timers"
-        :key="id"
-        :start-point="point"
-      />
+      <TransitionGroup name="list-slide">
+        <VCounterCard
+          v-for="(point, id) of timers"
+          :key="id"
+          :start-point="point"
+        />
 
-      <button
-        class="w-full max-w-[225px] grid bg-dark-gray place-content-center"
-        @click="onAddTimer"
-      >
-        <PlusSvg class="fill-gray" />
-      </button>
+        <button
+          key="btn"
+          class="w-full max-w-[225px] grid bg-dark-gray place-content-center"
+          @click="onAddTimer"
+        >
+          <PlusSvg class="fill-gray" />
+        </button>
+      </TransitionGroup>
     </article>
   </main>
 </template>
