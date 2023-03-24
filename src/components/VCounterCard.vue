@@ -43,7 +43,6 @@ const {
       <button
         v-if="isRunning"
         class=""
-        :disabled="!isRunning"
         @click="onPause"
       >
         <PauseIcon class="fill-gray" :class="{'fill-white': isRunning}" />
@@ -59,6 +58,7 @@ const {
 
       <button
         class=""
+        :disabled="!isRunning"
         @click="onStop"
       >
         <StopIcon class="fill-gray" :class="{'fill-white': isRunning}" />
