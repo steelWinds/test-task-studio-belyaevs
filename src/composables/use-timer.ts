@@ -16,7 +16,7 @@ export const useTimer = (startPoint: StartPoint, ms: number = 1000) => {
       hourCycle: 'h23'
     }).format(_timer.value)
 
-    const result = formatStr.match(/:?[0-9][1-9]+/gms)?.join('').slice(1)
+    const result = formatStr.match(/[0-9][1-9]+|[1-9][0-9]+|[0-9]+$$/gms)?.join(':')
 
     return result
   })

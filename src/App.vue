@@ -4,7 +4,12 @@ import VCounterCard from '@/components/VCounterCard.vue'
 // @ts-ignore
 import PlusSvg from '@/assets/plus.svg?component'
 
-const timers = ref<StartPoint[]>([])
+const timers = ref<StartPoint[]>([
+  [10, 4, 58, 0],
+  [15, 20, 20, 0],
+  [0, 25, 42, 0],
+  [0, 0, 32, 0],
+])
 
 const onAddTimer = () => {
   timers.value.push([0, 0, 0, 0])
