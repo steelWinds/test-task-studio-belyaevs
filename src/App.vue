@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, nextTick } from 'vue'
+import { useScrollPage } from '@/composables/use-scroll-page'
 import VCounterCard from '@/components/VCounterCard.vue'
 // @ts-ignore
 import PlusSvg from '@/assets/plus.svg?component'
+
+const { scrollToFullSize } = useScrollPage()
 
 const timers = ref<StartPoint[]>([
   [10, 4, 58, 0],
@@ -11,8 +14,12 @@ const timers = ref<StartPoint[]>([
   [0, 0, 32, 0],
 ])
 
-const onAddTimer = () => {
+const onAddTimer = async () => {
   timers.value.push([0, 0, 0, 0])
+
+  await nextTick()
+
+  scrollToFullSize()
 }
 </script>
 
