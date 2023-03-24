@@ -21,14 +21,15 @@ const {
 </script>
 
 <template>
-  <article class="w-full max-w-[225px] grid grid-rows-2 bg-dark-gray place-items-center">
+  <article class="w-full max-w-[225px] grid grid-rows-2 bg-dark-gray">
     <div
       id="timer"
-      class="counter border-b-2 border-gray"
+      class="counter border-b-2 border-gray w-full grid place-content-center"
+      :class="{'border-white': isRunning}"
       role="timer"
       aria-controls="btn-group"
     >
-      <time class="text-[22px]">
+      <time class="text-[22px] text-gray" :class="{'text-white': isRunning}">
         {{ formatTime || '00' }}
       </time>
     </div>
@@ -36,12 +37,13 @@ const {
     <div
       id="btn-group"
       role="controls"
-      class="grid grid-cols-2 gap-12"
+      class="grid grid-cols-2 gap-12 place-self-center"
       aria-labelledby="timer"
     >
       <button
         v-if="isRunning"
         class=""
+        :disabled="!isRunning"
         @click="onPause"
       >
         <PauseIcon class="fill-gray" :class="{'fill-white': isRunning}" />

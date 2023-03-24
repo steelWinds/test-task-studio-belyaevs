@@ -11,8 +11,8 @@ const onAddTimer = () => {
 </script>
 
 <template>
-  <main class="h-screen w-full flex place-content-center p-3">
-    <article class="counters-grid grid gap-[50px] mt-[30vh]">
+  <main class="h-auto w-full flex place-content-center p-3">
+    <article class="counters-grid grid gap-[50px] mt-12">
       <VCounterCard
         v-for="(point, id) of timers"
         :key="id"
