@@ -70,15 +70,3 @@ const {
     </div>
   </article>
 </template>
-
-<style scoped lang="postcss">
-.fade-enter-active,
-.fade-leave-active {
-  transition: all .2s linear;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-</style>
