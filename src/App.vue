@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import VCounterCard from '@/components/VCounterCard.vue'
+// @ts-ignore
 import PlusSvg from '@/assets/plus.svg?component'
 
 const timers = ref<StartPoint[]>([])

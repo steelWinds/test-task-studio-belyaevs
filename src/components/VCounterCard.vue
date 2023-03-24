@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { defineProps } from 'vue'
 import { useTimer } from '@/composables/use-timer'
+// @ts-ignore
 import PlayIcon from '@/assets/triangle.svg?component'
+// @ts-ignore
 import StopIcon from '@/assets/square.svg?component'
+// @ts-ignore
 import PauseIcon from '@/assets/pause.svg?component'
 
 interface Props {
