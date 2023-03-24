@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, nextTick } from 'vue'
+import { ref, watch } from 'vue'
 import { useScrollPage } from '@/composables/use-scroll-page'
 import VCounterCard from '@/components/VCounterCard.vue'
 // @ts-ignore
@@ -16,11 +16,9 @@ const timers = ref<StartPoint[]>([
 
 const onAddTimer = async () => {
   timers.value.push([0, 0, 0, 0])
-
-  await nextTick()
-
-  scrollToFullSize()
 }
+
+watch(timers, scrollToFullSize, { deep: true, flush: 'post' })
 </script>
 
 <template>

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
 import { useTimer } from '@/composables/use-timer'
 // @ts-ignore
 import PlayIcon from '@/assets/triangle.svg?component'
