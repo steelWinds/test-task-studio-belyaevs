@@ -9,7 +9,7 @@ interface Params {
   msTimeout?: number
 }
 
-export const useTimer = (params: Params) => {
+export const useStopwatch = (params: Params) => {
   const {
     timestamp = 0,
     separator = ':',
@@ -32,8 +32,6 @@ export const useTimer = (params: Params) => {
     const seconds = dateTime.getSeconds()
     const minutes = dateTime.getMinutes()
     const hours = Math.floor(_timer.value / (1000 * 60 * 60))
-
-    console.log(format(hours))
 
     const result = [hours, minutes, seconds].map(format).join(separator)
 

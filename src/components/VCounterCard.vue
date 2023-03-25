@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useTimer } from '@/composables/use-timer'
+import { useStopwatch } from '@/composables/use-stopwatch'
 // @ts-ignore
 import PlayIcon from '@/assets/triangle.svg?component'
 // @ts-ignore
@@ -14,7 +14,7 @@ interface Props {
 const props = defineProps<Props>()
 
 const parseFormatTime = (str: string) => {
-  return str.replace(/^0+:?/gms, '')
+  return str.replace(/^[0+:?]+/gms, '')
 }
 
 const {
@@ -23,7 +23,7 @@ const {
   pause: onPause,
   start: onStart,
   stop: onStop,
-} = useTimer({
+} = useStopwatch({
   timestamp: props.timestamp,
   parse: parseFormatTime
 })
