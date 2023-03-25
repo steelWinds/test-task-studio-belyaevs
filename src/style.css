@@ -1,6 +1,7 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+@import '@/assets/fonts.css';
 
 @layer vue-animations;
 
@@ -33,7 +34,7 @@
 }
 
 :root {
-  font-family: Gotham Pro, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Gotham Pro;
   line-height: 1.5;
   font-weight: 400;
 
