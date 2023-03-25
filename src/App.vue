@@ -2,7 +2,6 @@
 import { ref, watch } from 'vue'
 import { useScrollPage } from '@/composables/use-scroll-page'
 import VCounterCard from '@/components/VCounterCard.vue'
-// @ts-ignore
 import PlusSvg from '@/assets/plus.svg?component'
 
 const { scrollToFullSize } = useScrollPage()

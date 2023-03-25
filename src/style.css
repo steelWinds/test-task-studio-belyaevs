@@ -1,7 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
-@import '@/assets/fonts.css';
 
 @layer vue-animations;
 
@@ -34,7 +35,7 @@
 }
 
 :root {
-  font-family: Gotham Pro;
+  font-family: Roboto;
   line-height: 1.5;
   font-weight: 400;
 

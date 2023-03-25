@@ -1,45 +1,44 @@
-import { ref, computed } from 'vue'
-import { useFormatNumber } from '@/composables/use-format-number'
+import { ref, reactive } from 'vue'
+import { TimeData } from '@/composables/use-stopwatch/TimeData'
 
 interface Params {
   elapsed?: number
-  separator?: string,
-  parse?: TransformFunction,
   msTimeout?: number
+  msFixed?: number
 }
 
 export const useStopwatch = (params: Params) => {
   const {
     elapsed = 0,
-    separator = ':',
-    parse = String,
-    msTimeout = 1000
+    msTimeout = 10,
+    msFixed = 1
   } = params
 
   let _startTimestamp = 0
   let _timeoutId: NodeJS.Timer
+
   const _elapsedMs = ref(elapsed)
 
+  const time = reactive(new TimeData())
   const isRunning = ref(false)
-
-  const { format } = useFormatNumber()
-
-  const formatTime = computed(() => {
-    const dateTime = new Date(_elapsedMs.value)
-
-    const seconds = dateTime.getSeconds()
-    const minutes = dateTime.getMinutes()
-    const hours = Math.floor(_elapsedMs.value / (1000 * 60 * 60))
-
-    const result = [hours, minutes, seconds].map(format).join(separator)
-
-    return parse(result)
-  })
 
   const _updateStartPoint = () => _startTimestamp = Date.now()
 
-  const tick = () => {
+  const _setTime = () => {
+    const date = new Date(_elapsedMs.value)
+
+    Object.assign(time, {
+      ms: Math.floor(date.getMilliseconds() / 10 ** msFixed),
+      s: date.getSeconds(),
+      m: date.getMinutes(),
+      hr: Math.floor(date.getTime() / (1000 * 60 * 60))
+    })
+  }
+
+  const _tick = () => {
     _elapsedMs.value += Date.now() - _startTimestamp
+
+    _setTime()
 
     _updateStartPoint()
   }
@@ -50,7 +49,7 @@ export const useStopwatch = (params: Params) => {
     _updateStartPoint()
 
     const cl = () => {
-      tick()
+      _tick()
 
       _timeoutId = setTimeout(cl, msTimeout)
     }
@@ -72,8 +71,10 @@ export const useStopwatch = (params: Params) => {
     clearTimeout(_timeoutId)
   }
 
+  _setTime()
+
   return {
-    formatTime,
+    time,
     isRunning,
     start,
     pause,

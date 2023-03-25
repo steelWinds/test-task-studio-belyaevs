@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+
 import { useStopwatch } from '@/composables/use-stopwatch'
-// @ts-ignore
+import { useFormatNumber } from '@/composables/use-format-number'
 import PlayIcon from '@/assets/triangle.svg?component'
-// @ts-ignore
 import StopIcon from '@/assets/square.svg?component'
-// @ts-ignore
 import PauseIcon from '@/assets/pause.svg?component'
 
 interface Props {
@@ -13,20 +13,18 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const parseFormatTime = (str: string) => {
-  return str.replace(/^[0+:?]+/gms, '')
-}
-
+const { format } = useFormatNumber()
 const {
   isRunning,
-  formatTime,
+  time,
   pause: onPause,
   start: onStart,
   stop: onStop,
 } = useStopwatch({
   elapsed: props.elapsed,
-  parse: parseFormatTime
 })
+
+const formatTime = computed(() => time.formatTime(format, ':').replace(/^[0+:?]+/gms, ''))
 </script>
 
 <template>
@@ -38,7 +36,10 @@ const {
       role="timer"
       aria-controls="btn-group"
     >
-      <time class="text-[22px] text-gray transition-colors duration-200" :class="{'text-white': isRunning}">
+      <time
+        class="text-[22px] text-gray transition-colors duration-200 grid stopwatch-grid"
+        :class="{'text-white': isRunning}"
+      >
         {{ formatTime || '0' }}
       </time>
     </div>
@@ -77,3 +78,9 @@ const {
     </div>
   </article>
 </template>
+
+<style scoped>
+.stopwatch-grid {
+  grid-template-columns: repeat(4, auto);
+}
+</style>
