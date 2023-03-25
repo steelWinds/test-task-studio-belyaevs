@@ -12,7 +12,8 @@ const timers = ref<number[]>([
   160_000,
   1_532_000,
   5_415_000,
-  4_833_000
+  4_833_000,
+  3_546_600
 ])
 
 const onAddTimer = async () => {
