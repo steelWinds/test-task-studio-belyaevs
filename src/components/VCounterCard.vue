@@ -8,10 +8,14 @@ import StopIcon from '@/assets/square.svg?component'
 import PauseIcon from '@/assets/pause.svg?component'
 
 interface Props {
-  startPoint?: StartPoint;
+  timestamp?: number;
 }
 
 const props = defineProps<Props>()
+
+const parseFormatTime = (str: string) => {
+  return str.replace(/^0+:?/gms, '')
+}
 
 const {
   isRunning,
@@ -19,7 +23,10 @@ const {
   pause: onPause,
   start: onStart,
   stop: onStop,
-} = useTimer(props.startPoint ?? [0, 0, 0, 0])
+} = useTimer({
+  timestamp: props.timestamp,
+  parse: parseFormatTime
+})
 </script>
 
 <template>
@@ -32,7 +39,7 @@ const {
       aria-controls="btn-group"
     >
       <time class="text-[22px] text-gray transition-colors duration-200" :class="{'text-white': isRunning}">
-        {{ formatTime || '00' }}
+        {{ formatTime || '0' }}
       </time>
     </div>
 

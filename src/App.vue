@@ -7,15 +7,16 @@ import PlusSvg from '@/assets/plus.svg?component'
 
 const { scrollToFullSize } = useScrollPage()
 
-const timers = ref<StartPoint[]>([
-  [10, 4, 58, 0],
-  [15, 20, 20, 0],
-  [0, 25, 42, 0],
-  [0, 0, 32, 0],
+const timers = ref<number[]>([
+  432_000_000,
+  160_000,
+  1_532_000,
+  5_415_000,
+  4_833_000
 ])
 
 const onAddTimer = async () => {
-  timers.value.push([0, 0, 0, 0])
+  timers.value.push(0)
 }
 
 watch(timers, scrollToFullSize, { deep: true, flush: 'post' })
@@ -28,7 +29,7 @@ watch(timers, scrollToFullSize, { deep: true, flush: 'post' })
         <VCounterCard
           v-for="(point, id) of timers"
           :key="id"
-          :start-point="point"
+          :timestamp="point"
         />
 
         <button

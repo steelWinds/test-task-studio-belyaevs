@@ -1,1 +1,1 @@
-declare type StartPoint = [number, number, number, number];
+declare type TransformFunction = (formatStr: string) => string;

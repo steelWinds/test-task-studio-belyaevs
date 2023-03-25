@@ -1,24 +1,43 @@
 import { ref, computed } from 'vue'
+import { useFormatNumber } from '@/composables/use-format-number'
 
-export const useTimer = (startPoint: StartPoint, ms: number = 1000) => {
+interface Params {
+  timestamp?: number
+  separator?: string,
+  segments?: boolean,
+  parse?: TransformFunction,
+  msTimeout?: number
+}
+
+export const useTimer = (params: Params) => {
+  const {
+    timestamp = 0,
+    separator = ':',
+    segments = false,
+    parse = String,
+    msTimeout = 1000
+  } = params
+
   let _start = 0
   let _timeoutId: NodeJS.Timer
-  const _timer = ref(new Date().setHours(...startPoint))
+  const _timer = ref(timestamp)
 
   const isRunning = ref(false)
 
+  const { format } = useFormatNumber()
+
   const formatTime = computed(() => {
-    const formatStr = new Intl.DateTimeFormat('en', {
-      minute: "numeric",
-      second: "numeric",
-      hour: "numeric",
-      formatMatcher: 'basic',
-      hourCycle: 'h23'
-    }).format(_timer.value)
+    const dateTime = new Date(_timer.value)
 
-    const result = formatStr.match(/[0-9][1-9]+|[1-9][0-9]+|[0-9]+$$/gms)?.join(':')
+    const seconds = dateTime.getSeconds()
+    const minutes = dateTime.getMinutes()
+    const hours = Math.floor(_timer.value / (1000 * 60 * 60))
 
-    return result
+    console.log(format(hours))
+
+    const result = [hours, minutes, seconds].map(format).join(separator)
+
+    return parse(result)
   })
 
   const _updateStartPoint = () => _start = Date.now()
@@ -37,10 +56,10 @@ export const useTimer = (startPoint: StartPoint, ms: number = 1000) => {
     const cl = () => {
       tick()
 
-      _timeoutId = setTimeout(cl, ms)
+      _timeoutId = setTimeout(cl, msTimeout)
     }
 
-    _timeoutId = setTimeout(cl, ms)
+    _timeoutId = setTimeout(cl, msTimeout)
   }
 
   const stop = () => {
@@ -48,7 +67,7 @@ export const useTimer = (startPoint: StartPoint, ms: number = 1000) => {
 
     clearTimeout(_timeoutId)
 
-    _timer.value = new Date().setHours(...startPoint)
+    _timer.value = timestamp
   }
 
   const pause = () => {
