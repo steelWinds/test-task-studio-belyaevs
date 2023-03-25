@@ -2,46 +2,44 @@ import { ref, computed } from 'vue'
 import { useFormatNumber } from '@/composables/use-format-number'
 
 interface Params {
-  timestamp?: number
+  elapsed?: number
   separator?: string,
-  segments?: boolean,
   parse?: TransformFunction,
   msTimeout?: number
 }
 
 export const useStopwatch = (params: Params) => {
   const {
-    timestamp = 0,
+    elapsed = 0,
     separator = ':',
-    segments = false,
     parse = String,
     msTimeout = 1000
   } = params
 
-  let _start = 0
+  let _startTimestamp = 0
   let _timeoutId: NodeJS.Timer
-  const _timer = ref(timestamp)
+  const _elapsedMs = ref(elapsed)
 
   const isRunning = ref(false)
 
   const { format } = useFormatNumber()
 
   const formatTime = computed(() => {
-    const dateTime = new Date(_timer.value)
+    const dateTime = new Date(_elapsedMs.value)
 
     const seconds = dateTime.getSeconds()
     const minutes = dateTime.getMinutes()
-    const hours = Math.floor(_timer.value / (1000 * 60 * 60))
+    const hours = Math.floor(_elapsedMs.value / (1000 * 60 * 60))
 
     const result = [hours, minutes, seconds].map(format).join(separator)
 
     return parse(result)
   })
 
-  const _updateStartPoint = () => _start = Date.now()
+  const _updateStartPoint = () => _startTimestamp = Date.now()
 
   const tick = () => {
-    _timer.value += Date.now() - _start
+    _elapsedMs.value += Date.now() - _startTimestamp
 
     _updateStartPoint()
   }
@@ -65,7 +63,7 @@ export const useStopwatch = (params: Params) => {
 
     clearTimeout(_timeoutId)
 
-    _timer.value = timestamp
+    _elapsedMs.value = elapsed
   }
 
   const pause = () => {

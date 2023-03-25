@@ -8,7 +8,7 @@ import StopIcon from '@/assets/square.svg?component'
 import PauseIcon from '@/assets/pause.svg?component'
 
 interface Props {
-  timestamp?: number;
+  elapsed?: number;
 }
 
 const props = defineProps<Props>()
@@ -24,7 +24,7 @@ const {
   start: onStart,
   stop: onStop,
 } = useStopwatch({
-  timestamp: props.timestamp,
+  elapsed: props.elapsed,
   parse: parseFormatTime
 })
 </script>

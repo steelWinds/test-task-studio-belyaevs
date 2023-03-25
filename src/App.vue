@@ -27,9 +27,9 @@ watch(timers, scrollToFullSize, { deep: true, flush: 'post' })
     <article class="counters-grid grid gap-[50px] mt-12">
       <TransitionGroup name="list-slide">
         <VCounterCard
-          v-for="(point, id) of timers"
+          v-for="(elapsed, id) of timers"
           :key="id"
-          :timestamp="point"
+          :elapsed="elapsed"
         />
 
         <button
