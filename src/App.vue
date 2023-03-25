@@ -24,8 +24,8 @@ watch(timers, scrollToFullSize, { deep: true, flush: 'post' })
 </script>
 
 <template>
-  <main class="h-auto w-full flex place-content-center p-3">
-    <article class="counters-grid grid gap-[50px] mt-12">
+  <main class="h-auto w-full flex place-content-center p-3 py-12">
+    <article class="counters-grid grid gap-[50px]">
       <TransitionGroup name="list-slide">
         <VCounterCard
           v-for="(elapsed, id) of timers"
