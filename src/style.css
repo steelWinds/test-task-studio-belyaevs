@@ -4,7 +4,7 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-@layer vue-animations;
+@layer vue-animations, custom;
 
 @layer vue-animations {
   .list-slide-move,
@@ -34,7 +34,15 @@
   }
 }
 
+@layer custom {
+  html {
+    margin-left: var(--scrollbar-width);
+  }
+}
+
 :root {
+  --scrollbar-width: calc(100vw - 100%);
+
   font-family: Roboto;
   line-height: 1.5;
   font-weight: 400;
