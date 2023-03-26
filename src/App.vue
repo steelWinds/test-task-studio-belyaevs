@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, nextTick, toRaw } from 'vue'
+import { ref, nextTick } from 'vue'
 import { useScrollPage } from '@/composables/use-scroll-page'
 import { useWindowScroll } from '@vueuse/core'
 import { TimerUnit } from '@/utils/classes/TimerUnit'
@@ -8,10 +8,9 @@ import VCircleBtn from '@/components/VCircleBtn.vue'
 import PlusIcon from '@/assets/plus.svg?component'
 import ArrowUpIcon from '@/assets/arrow-up.svg?component'
 
-const { scrollToFullSize, scrollToTop } = useScrollPage()
+const { scrollToFullSize, scrollToTop, overscrollY } = useScrollPage()
 
 const timers = ref<TimerUnit[]>([])
-const { y: windowYScroll } = useWindowScroll()
 
 const onAddTimer = () => {
   timers.value.push(new TimerUnit(0))
@@ -50,21 +49,23 @@ const onRemoveTimer = (id: number) => {
       <PlusIcon class="fill-white group-active/btn:scale-75 duration-[inherit]" />
     </VCircleBtn>
 
-    <VCircleBtn
-      v-show="windowYScroll"
-      class="
-        w-12
-        lg:w-16
-        fixed
-        bottom-4
-        left-4
-        lg:bottom-8
-        lg:left-8
-      "
-      @click="scrollToTop"
-    >
-      <ArrowUpIcon class="fill-white group-active/btn:scale-75 duration-[inherit]" />
-    </VCircleBtn>
+    <Transition name="fade">
+      <VCircleBtn
+        v-show="overscrollY"
+        class="
+          w-12
+          lg:w-16
+          fixed
+          bottom-4
+          left-4
+          lg:bottom-8
+          lg:left-8
+        "
+        @click="scrollToTop"
+      >
+        <ArrowUpIcon class="fill-white group-active/btn:scale-75 duration-[inherit]" />
+      </VCircleBtn>
+    </Transition>
   </main>
 </template>
 

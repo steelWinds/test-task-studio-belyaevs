@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 
 // This object used with reactive array, so i use _ prefix for private properties,
-// not #, becouse it trigger error with proxi
+// not #, becouse it trigger error with proxy
 export class TimerUnit {
   private _id: string
 

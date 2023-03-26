@@ -16,16 +16,18 @@ export const useStopwatch = (params: Params) => {
 
   let _startTimestamp = 0
   let _timeoutId: NodeJS.Timer
+  let _elapsedMs = elapsed
 
-  const _elapsedMs = ref(elapsed)
 
   const time = reactive(new TimeData())
   const isRunning = ref(false)
 
   const _updateStartPoint = () => _startTimestamp = Date.now()
 
-  const _setTime = () => {
-    const date = new Date(_elapsedMs.value)
+  const _setTime = (ms?: number) => {
+    _elapsedMs = ms ?? _elapsedMs
+
+    const date = new Date(_elapsedMs)
 
     Object.assign(time, {
       ms: Math.floor(date.getMilliseconds() / 10 ** msFixed),
@@ -36,7 +38,7 @@ export const useStopwatch = (params: Params) => {
   }
 
   const _tick = () => {
-    _elapsedMs.value += Date.now() - _startTimestamp
+    _elapsedMs += Date.now() - _startTimestamp
 
     _setTime()
 
@@ -48,13 +50,11 @@ export const useStopwatch = (params: Params) => {
 
     _updateStartPoint()
 
-    const cl = () => {
+    _timeoutId = setTimeout(function cl() {
       _tick()
 
       _timeoutId = setTimeout(cl, msTimeout)
-    }
-
-    _timeoutId = setTimeout(cl, msTimeout)
+    }, msTimeout)
   }
 
   const stop = () => {
@@ -62,7 +62,7 @@ export const useStopwatch = (params: Params) => {
 
     clearTimeout(_timeoutId)
 
-    _elapsedMs.value = elapsed
+    _setTime(elapsed)
   }
 
   const pause = () => {
