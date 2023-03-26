@@ -16,6 +16,6 @@
       "@/*": ["./src/*"],
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue", "@types/node", "index.d.ts", "src/assets/triangle.svg?component"],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue", "@types/node", "index.d.ts", "src/assets/triangle.svg?component", "@types/uuid"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

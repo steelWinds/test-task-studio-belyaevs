@@ -1,4 +1,13 @@
 export const useScrollPage = () => {
+  const w = globalThis as any as Window
+
+  const scrollToTop = () => {
+    w?.scrollBy({
+      top: 0,
+      behavior: 'smooth'
+    })
+  }
+
   const scrollToFullSize = () => {
     const scrollPageSize = Math.max(
       document.body.scrollHeight, document.documentElement.scrollHeight,
@@ -9,13 +18,14 @@ export const useScrollPage = () => {
 
     if (scrollPageSize <= pageYSize) return
 
-    window.scrollBy({
+    w?.scrollBy({
       top: scrollPageSize - pageYSize,
       behavior: 'smooth'
     })
   }
 
   return {
-    scrollToFullSize
+    scrollToFullSize,
+    scrollToTop
   }
 }

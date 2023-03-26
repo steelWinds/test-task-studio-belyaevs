@@ -1,46 +1,70 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, nextTick, toRaw } from 'vue'
 import { useScrollPage } from '@/composables/use-scroll-page'
+import { useWindowScroll } from '@vueuse/core'
+import { TimerUnit } from '@/utils/classes/TimerUnit'
 import VCounterCard from '@/components/VCounterCard.vue'
-import PlusSvg from '@/assets/plus.svg?component'
+import VCircleBtn from '@/components/VCircleBtn.vue'
+import PlusIcon from '@/assets/plus.svg?component'
+import ArrowUpIcon from '@/assets/arrow-up.svg?component'
 
-const { scrollToFullSize } = useScrollPage()
+const { scrollToFullSize, scrollToTop } = useScrollPage()
 
-const timers = ref<number[]>([
-  432_000_000,
-  160_000,
-  1_532_000,
-  5_415_000,
-  4_833_000,
-  3_546_600
-])
+const timers = ref<TimerUnit[]>([])
+const { y: windowYScroll } = useWindowScroll()
 
-const onAddTimer = async () => {
-  timers.value.push(0)
+const onAddTimer = () => {
+  timers.value.push(new TimerUnit(0))
+
+  nextTick(scrollToFullSize)
 }
 
-watch(timers, scrollToFullSize, { deep: true, flush: 'post' })
+const onRemoveTimer = (id: number) => {
+  timers.value.splice(id, 1)
+}
 </script>
 
 <template>
-  <main class="h-auto w-full flex place-content-center p-3 py-12">
-    <article class="counters-grid grid gap-[50px]">
-      <TransitionGroup name="list-slide">
-        <VCounterCard
-          v-for="(elapsed, id) of timers"
-          :key="id"
-          :elapsed="elapsed"
-        />
+  <main class="min-h-screen max-h-auto w-full flex place-content-center p-3 py-12 relative">
+    <TransitionGroup name="list-slide" tag="article" class="counters-grid grid gap-[50px]">
+      <VCounterCard
+        v-for="({elapsed, id}, idx) of timers"
+        :key="id"
+        :elapsed="elapsed"
+        @remove="() => onRemoveTimer(idx)"
+      />
+    </TransitionGroup>
 
-        <button
-          key="btn"
-          class="w-full max-w-[225px] grid bg-dark-gray place-content-center"
-          @click="onAddTimer"
-        >
-          <PlusSvg class="fill-gray" />
-        </button>
-      </TransitionGroup>
-    </article>
+    <VCircleBtn
+      class="
+        w-12
+        lg:w-16
+        fixed
+        bottom-4
+        right-4
+        lg:bottom-8
+        lg:right-8
+      "
+      @click="onAddTimer"
+    >
+      <PlusIcon class="fill-white group-active/btn:scale-75 duration-[inherit]" />
+    </VCircleBtn>
+
+    <VCircleBtn
+      v-show="windowYScroll"
+      class="
+        w-12
+        lg:w-16
+        fixed
+        bottom-4
+        left-4
+        lg:bottom-8
+        lg:left-8
+      "
+      @click="scrollToTop"
+    >
+      <ArrowUpIcon class="fill-white group-active/btn:scale-75 duration-[inherit]" />
+    </VCircleBtn>
   </main>
 </template>
 
@@ -48,6 +72,10 @@ watch(timers, scrollToFullSize, { deep: true, flush: 'post' })
 .counters-grid {
   grid-template-columns: repeat(3, minmax(auto, 225px));
   grid-auto-rows: minmax(auto, 120px);
+
+  @media (width < 924px) {
+    grid-template-columns: repeat(2, minmax(auto, 225px));
+  }
 
   @media (width < 764px) {
     grid-template-columns: repeat(1, minmax(auto, 225px));

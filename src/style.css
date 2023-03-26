@@ -8,18 +8,18 @@
 
 @layer vue-animations {
   .list-slide-move,
-  .list-slide-enter-active,
-  .list-slide-leave-active {
-    transition: all .2s linear;
+  .list-slide-enter-active{
+    transition: all .5s;
   }
 
-  .list-slide-enter-from,
-  .list-slide-leave-to {
+  .list-slide-enter-from {
     opacity: 0;
-    transform: translateY(-100%);
+    transform: translateY(-2rem);
   }
 
   .list-slide-leave-active {
+    transition: all 0s;
+    opacity: 0;
     position: absolute;
   }
 

@@ -1,17 +1,22 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-
 import { useStopwatch } from '@/composables/use-stopwatch'
 import { useFormatNumber } from '@/composables/use-format-number'
 import PlayIcon from '@/assets/triangle.svg?component'
 import StopIcon from '@/assets/square.svg?component'
 import PauseIcon from '@/assets/pause.svg?component'
+import CloseIcon from '@/assets/close.svg?component'
 
 interface Props {
   elapsed?: number;
 }
 
+interface Emit {
+  (e: 'remove'): void
+}
+
 const props = defineProps<Props>()
+const emit = defineEmits<Emit>()
 
 const { format } = useFormatNumber()
 const {
@@ -28,14 +33,18 @@ const formatTime = computed(() => time.formatTime(format, ':').replace(/^[0+:?]+
 </script>
 
 <template>
-  <article class="w-full max-w-[225px] grid grid-rows-2 bg-dark-gray">
+  <article class="w-full min-h-[120px] max-w-[225px] grid grid-rows-2 bg-dark-gray">
     <div
       id="timer"
-      class="counter border-b-2 border-gray w-full grid place-content-center transition-colors duration-300"
+      class="counter border-b-2 border-gray w-full grid place-content-center transition-colors duration-300 relative"
       :class="{'border-white': isRunning}"
       role="timer"
       aria-controls="btn-group"
     >
+      <button class="absolute top-2 right-2" @click="emit('remove')">
+        <CloseIcon class="stroke-white stroke-1 w-[30px] h=[30px]" />
+      </button>
+
       <time
         class="text-[22px] text-gray transition-colors duration-200 grid stopwatch-grid"
         :class="{'text-white': isRunning}"
