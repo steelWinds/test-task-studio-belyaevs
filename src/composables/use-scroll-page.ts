@@ -29,8 +29,6 @@ export const useScrollPage = () => {
 
     const isTotallyScrolled = Math.abs(pageScrollSize - pageClientSize - scrollTop) < 1
 
-    console.log(pageScrollSize, pageClientSize, scrollTop)
-
     if (isTotallyScrolled) return
 
     w?.scrollTo({
