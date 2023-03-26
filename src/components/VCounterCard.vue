@@ -42,7 +42,7 @@ const formatTime = computed(() => time.formatTime(format, ':').replace(/^[0+:?]+
       aria-controls="btn-group"
     >
       <button class="absolute top-2 right-2" @click="emit('remove')">
-        <CloseIcon class="stroke-white stroke-1 w-[30px] h=[30px]" />
+        <CloseIcon class="stroke-white stroke-1 w-[30px] aspect-square" />
       </button>
 
       <time
@@ -65,7 +65,7 @@ const formatTime = computed(() => time.formatTime(format, ':').replace(/^[0+:?]+
           class=""
           @click="onPause"
         >
-          <PauseIcon class="fill-gray transition-colors duration-200" :class="{'fill-white': isRunning}" />
+          <PauseIcon class="fill-gray transition-colors duration-200 active:scale-75" :class="{'fill-white': isRunning}" />
         </button>
 
         <button
@@ -73,7 +73,7 @@ const formatTime = computed(() => time.formatTime(format, ':').replace(/^[0+:?]+
           class=""
           @click="onStart"
         >
-          <PlayIcon class="fill-gray transition-colors duration-200" :class="{'fill-white': isRunning}" />
+          <PlayIcon class="fill-white transition-colors duration-200 active:scale-75" />
         </button>
       </Transition>
 
@@ -82,7 +82,7 @@ const formatTime = computed(() => time.formatTime(format, ':').replace(/^[0+:?]+
         :disabled="!isRunning"
         @click="onStop"
       >
-        <StopIcon class="fill-gray transition-colors duration-200" :class="{'fill-white': isRunning}" />
+        <StopIcon class="fill-gray transition-colors duration-200 active:scale-75" :class="{'fill-white': isRunning}" />
       </button>
     </div>
   </article>

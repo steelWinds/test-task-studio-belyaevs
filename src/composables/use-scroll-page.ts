@@ -17,9 +17,21 @@ export const useScrollPage = () => {
   }
 
   const scrollToFullSize = () => {
-    const pageScrollSize = w?.document.documentElement.scrollHeight ?? 0
+    if (!w?.document) return
 
-    if (pageScrollSize <= wYSize.value) return
+    let pageScrollSize = Math.max(
+      document.body.scrollHeight, document.documentElement.scrollHeight,
+      document.body.offsetHeight, document.documentElement.offsetHeight,
+      document.body.clientHeight, document.documentElement.clientHeight
+    )
+    const pageClientSize = document.documentElement.clientHeight
+    const scrollTop = document.body.scrollTop
+
+    const isTotallyScrolled = Math.abs(pageScrollSize - pageClientSize - scrollTop) < 1
+
+    console.log(pageScrollSize, pageClientSize, scrollTop)
+
+    if (isTotallyScrolled) return
 
     w?.scrollTo({
       top: pageScrollSize,

@@ -7,8 +7,6 @@
       bg-dark-gray
       place-content-center
       group/btn
-      sm:hover:-translate-y-1
-      duration-200
     "
   >
     <slot />

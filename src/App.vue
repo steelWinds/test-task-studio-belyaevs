@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, nextTick } from 'vue'
 import { useScrollPage } from '@/composables/use-scroll-page'
-import { useWindowScroll } from '@vueuse/core'
 import { TimerUnit } from '@/utils/classes/TimerUnit'
 import VCounterCard from '@/components/VCounterCard.vue'
 import VCircleBtn from '@/components/VCircleBtn.vue'
@@ -24,46 +23,39 @@ const onRemoveTimer = (id: number) => {
 </script>
 
 <template>
-  <main class="min-h-screen max-h-auto w-full flex place-content-center p-3 py-12 relative">
-    <TransitionGroup name="list-slide" tag="article" class="counters-grid grid gap-[50px]">
+  <main class="h-auto w-full flex place-content-center p-3 py-12 relative">
+    <TransitionGroup
+      name="list-slide"
+      tag="article"
+      class="counters-grid grid gap-[50px]"
+    >
       <VCounterCard
         v-for="({elapsed, id}, idx) of timers"
         :key="id"
         :elapsed="elapsed"
         @remove="() => onRemoveTimer(idx)"
       />
-    </TransitionGroup>
 
-    <VCircleBtn
-      class="
-        w-12
-        lg:w-16
-        fixed
-        bottom-4
-        right-4
-        lg:bottom-8
-        lg:right-8
-      "
-      @click="onAddTimer"
-    >
-      <PlusIcon class="fill-white group-active/btn:scale-75 duration-[inherit]" />
-    </VCircleBtn>
+      <button
+        class="w-full min-h-[120px] max-w-[225px] grid place-content-center bg-dark-gray group/btn"
+        @click="onAddTimer()"
+      >
+        <PlusIcon class="fill-white group-active/btn:scale-75 duration-200" />
+      </button>
+    </TransitionGroup>
 
     <Transition name="fade">
       <VCircleBtn
         v-show="overscrollY"
         class="
-          w-12
-          lg:w-16
+          w-14 sm:w-16
           fixed
-          bottom-4
-          left-4
-          lg:bottom-8
-          lg:left-8
+          bottom-6 sm:bottom-8
+          left-6 sm:left-8
         "
         @click="scrollToTop"
       >
-        <ArrowUpIcon class="fill-white group-active/btn:scale-75 duration-[inherit]" />
+        <ArrowUpIcon class="fill-white group-active/btn:scale-75 duration-200" />
       </VCircleBtn>
     </Transition>
   </main>
