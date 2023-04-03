@@ -12,9 +12,9 @@
     <br />
     <a href="https://v-stopwatch-list.vercel.app/">View Demo</a>
     ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
+    <a href="https://github.com/steelWinds/v-stopwatch-list/issues">Report Bug</a>
     ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Request Feature</a>
+    <a href="https://github.com/steelWinds/v-stopwatch-list/issues">Request Feature</a>
   </p>
 </div>
 
