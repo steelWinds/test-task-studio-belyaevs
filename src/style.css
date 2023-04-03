@@ -41,7 +41,7 @@
 
   body {
     /*For disable zoom on IOS devices*/
-    touch-action: pan-x;
+    touch-action: pan-x pan-y;
   }
 }
 
