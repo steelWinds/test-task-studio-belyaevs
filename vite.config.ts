@@ -28,7 +28,7 @@ export default defineConfig({
         short_name: 'V-Stopwatch',
         description: 'Watch your time!',
         theme_color: '#34495E',
-        display_override: ["fullscreen", "minimal-ui"],
+        display_override: ['window-controls-overlay', 'standalone', 'minimal-ui'],
         display: 'standalone',
         background_color: '#353638',
         lang: 'en',
