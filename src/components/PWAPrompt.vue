@@ -5,7 +5,14 @@ const {
   offlineReady,
   needRefresh,
   updateServiceWorker,
-} = useRegisterSW()
+} = useRegisterSW({
+  onRegistered(r) {
+    if (r) {
+      // Update SW every minute
+      setTimeout(r.update, 60 * 1000)
+    }
+  }
+})
 
 const close = async () => {
   offlineReady.value = false
