@@ -20,12 +20,16 @@
 
 # About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://v-stopwatch-list.vercel.app/)
+<div align="center">
+  <a href="https://v-stopwatch-list.vercel.app/">
+    <img src="public/screenshots/3.png">
+  </a>
+</div>
 
 Simple stopwatch PWA app, try it!
 
 ### Built with
-* [![Vue][Vue.js]][Vue-url]
+[![VUE](Vuejs)](https://vuejs.org/)
 
 ## Getting Started
 
