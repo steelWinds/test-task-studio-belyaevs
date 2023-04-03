@@ -19,6 +19,7 @@
 </div>
 
 # About The Project
+
 [![Product Name Screen Shot][product-screenshot]](https://v-stopwatch-list.vercel.app/)
 
 Simple stopwatch PWA app, try it!
