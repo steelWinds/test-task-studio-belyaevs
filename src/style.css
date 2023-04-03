@@ -38,6 +38,11 @@
   html {
     margin-left: var(--scrollbar-width);
   }
+
+  body {
+    /*For disable zoom on IOS devices*/
+    touch-action: pan-x;
+  }
 }
 
 :root {

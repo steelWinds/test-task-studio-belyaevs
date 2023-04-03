@@ -46,7 +46,7 @@ const formatTime = computed(() => time.formatTime(format, ':').replace(/^[0+:?]+
       </button>
 
       <time
-        class="text-[22px] text-gray transition-colors duration-200 grid stopwatch-grid"
+        class="text-[22px] text-gray transition-colors duration-200 select-none"
         :class="{'text-white': isRunning}"
       >
         {{ formatTime || '0' }}
@@ -87,9 +87,3 @@ const formatTime = computed(() => time.formatTime(format, ':').replace(/^[0+:?]+
     </div>
   </article>
 </template>
-
-<style scoped>
-.stopwatch-grid {
-  grid-template-columns: repeat(4, auto);
-}
-</style>

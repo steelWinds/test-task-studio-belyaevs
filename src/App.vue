@@ -3,6 +3,7 @@ import { ref, nextTick } from 'vue'
 import { useScrollPage } from '@/composables/use-scroll-page'
 import { TimerUnit } from '@/utils/classes/TimerUnit'
 import VCounterCard from '@/components/VCounterCard.vue'
+import PWAPrompt from '@/components/PWAPrompt.vue'
 import VCircleBtn from '@/components/VCircleBtn.vue'
 import PlusIcon from '@/assets/plus.svg?component'
 import ArrowUpIcon from '@/assets/arrow-up.svg?component'
@@ -23,6 +24,10 @@ const onRemoveTimer = (id: number) => {
 </script>
 
 <template>
+  <Transition name="fade" mode="out-in">
+    <PWAPrompt />
+  </Transition>
+
   <main class="h-auto w-full flex place-content-center p-3 py-12 relative">
     <TransitionGroup
       name="list-slide"
