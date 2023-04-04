@@ -37,11 +37,20 @@ const close = async () => {
     </div>
 
     <div class="flex space-x-2">
-      <button v-if="needRefresh" class="bg-green px-3 py-1" @click="updateServiceWorker()">
+      <button
+        v-if="needRefresh"
+        class="bg-green px-3 py-1"
+        aria-label="Reload app for update"
+        @click="updateServiceWorker()"
+      >
         Reload
       </button>
 
-      <button class="bg-green px-3 py-1" @click="close">
+      <button
+        aria-label="Close prompt modal"
+        class="bg-green px-3 py-1"
+        @click="close"
+      >
         Close
       </button>
     </div>

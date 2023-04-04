@@ -41,7 +41,11 @@ const formatTime = computed(() => time.formatTime(format, ':').replace(/^[0+:?]+
       role="timer"
       aria-controls="btn-group"
     >
-      <button class="absolute top-2 right-2" @click="emit('remove')">
+      <button
+        aria-label="Remove timer"
+        class="absolute top-2 right-2"
+        @click="emit('remove')"
+      >
         <CloseIcon class="stroke-white stroke-1 w-[30px] aspect-square" />
       </button>
 
@@ -61,6 +65,7 @@ const formatTime = computed(() => time.formatTime(format, ':').replace(/^[0+:?]+
     >
       <Transition name="fade" mode="out-in">
         <button
+          aria-label="Pause timer"
           v-if="isRunning"
           class=""
           @click="onPause"
@@ -69,6 +74,7 @@ const formatTime = computed(() => time.formatTime(format, ':').replace(/^[0+:?]+
         </button>
 
         <button
+          aria-label="Start timer"
           v-else
           class=""
           @click="onStart"
@@ -78,6 +84,7 @@ const formatTime = computed(() => time.formatTime(format, ':').replace(/^[0+:?]+
       </Transition>
 
       <button
+        aria-label="Stop timer"
         class=""
         :disabled="!isRunning"
         @click="onStop"

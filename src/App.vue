@@ -53,6 +53,7 @@ onMounted(() => {
       />
 
       <button
+        aria-label="Add Timer"
         class="w-full min-h-[120px] max-w-[225px] grid place-content-center bg-dark-gray group/btn"
         @click="onAddTimer()"
       >
@@ -63,6 +64,7 @@ onMounted(() => {
     <Transition name="fade">
       <VCircleBtn
         v-show="overscrollY"
+        aria-label="Scroll to top"
         class="
           w-14 sm:w-16
           fixed
