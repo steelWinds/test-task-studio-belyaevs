@@ -8,14 +8,14 @@ export const useScrollPage = () => {
   const overscrollY = computed(() => Math.floor(wYSize.value / 3) <= windowYScroll.value)
 
   const scrollToTop = () => {
-    self?.scrollTo({
+    globalThis?.scrollTo({
       top: 0,
       behavior: 'smooth'
     })
   }
 
   const scrollToFullSize = () => {
-    if (!self?.document) return
+    if (!globalThis?.document) return
 
     let pageScrollSize = Math.max(
       document.body.scrollHeight, document.documentElement.scrollHeight,
@@ -29,7 +29,7 @@ export const useScrollPage = () => {
 
     if (isTotallyScrolled) return
 
-    self?.scrollTo({
+    globalThis?.scrollTo({
       top: pageScrollSize,
       behavior: 'smooth'
     })

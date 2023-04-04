@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref, nextTick } from 'vue'
+import { ref, nextTick, onMounted } from 'vue'
 import { useScrollPage } from '@/composables/use-scroll-page'
+import { useEventListener, useVibrate } from '@vueuse/core'
 import { TimerUnit } from '@/utils/classes/TimerUnit'
 import VCounterCard from '@/components/VCounterCard.vue'
 import PWAPrompt from '@/components/PWAPrompt.vue'
@@ -21,6 +22,16 @@ const onAddTimer = () => {
 const onRemoveTimer = (id: number) => {
   timers.value.splice(id, 1)
 }
+
+onMounted(() => {
+  if (!globalThis.document) return
+
+  const { vibrate } = useVibrate({ pattern: 100 })
+
+  useEventListener(globalThis.document, 'pointerup', () => {
+    vibrate()
+  })
+})
 </script>
 
 <template>
